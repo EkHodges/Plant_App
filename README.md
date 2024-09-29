@@ -70,6 +70,7 @@ Users will also be able to filter this data depending on specific information th
         o	Should all icons be visible at the top even if the page is not developed?
 
 
-# App Flow:
+## App Flow:
+<img width="854" alt="App Flow Chart" src="https://github.com/user-attachments/assets/13497a4f-15aa-4d20-a60a-c0e80f149c61">
 
 
