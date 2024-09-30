@@ -1,7 +1,7 @@
 # Version 1 Progress Report 1
 
 
-pip install requests #this is causing a bug
+%pip install requests #this is causing a bug
 
 import tkinter as tk
 from tkinter import filedialog
@@ -47,7 +47,9 @@ api_key = os.getenv("sk-sNxo66f4b6854b73b7007")
 headers = {'Api-Key': api_key}
 response = requests.post(api_url, files=files, headers=headers)
 
+
 ##
+
 
 #for data gathering using wikipedia
     #purpose - gather relative information about the plant one identified
