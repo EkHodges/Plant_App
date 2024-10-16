@@ -39,11 +39,11 @@ plant_info = identify_plant(photo_path)
 print(plant_info)
 
 
-#add API key: sk-sNxo66f4b6854b73b7007 (perenual.com)
+#add API key: (perenual.com)
 import os
 
 api_url = https://perenual.com/
-api_key = os.getenv("sk-sNxo66f4b6854b73b7007")
+api_key = os.getenv("###")
 headers = {'Api-Key': api_key}
 response = requests.post(api_url, files=files, headers=headers)
 
