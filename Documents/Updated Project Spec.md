@@ -1,6 +1,6 @@
-## Updated Project Spec:
+# Updated Project Spec:
 
-# General Description:
+## General Description:
 This app will be an interactive way to explore native or local plants at a park in Ames, IA. The app will allow the user to search for native/local plants they encounter by using an image search. This app is intended to help those who are interested in the plants they encounter in their local environment but are unaware of plant specifics needed for a direct search, such as the plant or species names.
 
 Since all of Central Iowa is located entirety within the USDA Hardiness Zone 5b, any plants found within Ames should result in the same native/local options, so users would be able to use this app at any of the parks in Ames or surrounding areas.
@@ -11,7 +11,7 @@ Users will also be able to filter this data depending on specific information th
 
 ## Task Vignette:
 
-# 1.	User Input (photo search)
+### 1.	User Input (photo search)
 
 Carla finds a new plant she is unfamiliar with on a walk in the park by her new home. She uses the TAKE A PHOTO feature on the main screen of the app to take a photo of the plant. The app uses this image to generate the identifying information. A loading status bar appears on screen before text response appears.
 
@@ -19,7 +19,7 @@ Details for later:
 o	The app could take a photo within the app OR have a image added from the phone’s gallery/photos folder
 
 
-# 2.	Plant Identification
+### 2.	Plant Identification
 
 After the photo is added to the app, the identifying information appears on screen. Carla is able to find out the name of the plant, some basic features to help identify it, if the plant is poisonous or not, along with a longer, detailed description of the plant. 
 
@@ -32,7 +32,7 @@ o	Should this also mention a save icon if added later on?
 o	Screen should include a thumbnail image of the original plant photo to use as reference
 
 
-# 3.	User Input (current location) 
+### 3.	User Input (current location) 
 
 Carla is a new resident to Iowa and Ames more specifically. She recently moved here from West Texas and is curious about the different range of native plants Iowa has in comparison to the West Texas desert. 
 
