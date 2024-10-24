@@ -16,7 +16,7 @@ Users will also be able to filter this data depending on specific information th
 Carla finds a new plant she is unfamiliar with on a walk in the park by her new home. She uses the TAKE A PHOTO feature on the main screen of the app to take a photo of the plant. The app uses this image to generate the identifying information. A loading status bar appears on screen before text response appears.
 
 Details for later:
-o	The app could take a photo within the app OR have a image added from the phone’s gallery/photos folder
+ - The app could take a photo within the app OR have a image added from the phone’s gallery/photos folder
 
 
 ### 2.	Plant Identification
@@ -28,8 +28,8 @@ The information appears as a category list that includes subheadings and the des
 The screen includes a filter icon in the top right corner of the screen to ‘jump’ to specific information. Otherwise, the text field can be navigated by a scroll text feature.
 
 Details for later:
-o	Should this also mention a save icon if added later on?
-o	Screen should include a thumbnail image of the original plant photo to use as reference
+ - Should this also mention a save icon if added later on?
+ - Screen should include a thumbnail image of the original plant photo to use as reference
 
 
 ### 3.	User Input (current location) 
@@ -39,8 +39,8 @@ Carla is a new resident to Iowa and Ames more specifically. She recently moved h
 She opens the app and inputs her updated location for better search results. Clicking on LOCATION she is able to input ‘Ames, Iowa’ into a search bar, and clicks SAVE button. Alternatively, she could enter the zip code instead.
 
 Details for later:
-o	Could this access the maps feature for geo-location?
-o	Result could generate a basic map as the location page image after input
+ - Could this access the maps feature for geo-location?
+ - Result could generate a basic map as the location page image after input
 
 I am not sure if I would be able to fulfill this task, but I think I would still like to keep it as an option since my photo recognition tasks are coming along well so far. If I have time, I would like to include this one as well.
 
