@@ -107,7 +107,7 @@ class PlantIndicator(tk.Tk):
         print(client)
 
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4",
             messages=[
                         {
                         "role": "user",
@@ -116,7 +116,7 @@ class PlantIndicator(tk.Tk):
                             {
                             "type": "image_url",
                             "image_url": {
-                            "url": "http://res.cloudinary.com/de24b2xsz/image/upload/v1729885095/rmqdrdldxa9cpmxfl3wx.jpg",
+                                "url": image_url,
                             },
                             },
                         ],
@@ -142,8 +142,9 @@ api_keys = {
     "open_ai_api_key": open_ai_api_key
 }
 
-import os
+import openai
 print(os.getcwd())
+
 
 app =   PlantIndicator(api_keys) # make sure to pass the API key
 app.mainloop()
