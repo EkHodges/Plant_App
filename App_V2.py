@@ -6,6 +6,13 @@ import requests
 from tkinter.scrolledtext import ScrolledText
 from tkinter import ttk  # This contains the self.notebook widget but is also has themed/styles widgets e.g. ttk.Button
 import platform
+import cloudinary
+import cloudinary.uploader
+
+import os
+from openai import OpenAI # pip install openai
+from keys import open_ai_api_key # you must enter your OpenAI API key in a file called keys.py
+
 
 # API configuration 
 from keys import cloud_name, api_key, api_secret, open_ai_api_key   # make sure keys.py is you .gitignore!!!!
@@ -91,36 +98,35 @@ class PlantIndicator(tk.Tk):
             api_secret = api_secret
             )
 
-        response = cloudinary.uploader.upload('Images\purple-coneflower.jpg')
+        response = cloudinary.uploader.upload('Images/purple-coneflower.jpg')
         image_url = response['url']
         public_id = response['public_id']
         print(f"Image URL: {image_url}")
         
-        client = OpenAI(
-            api_key=open_ai_api_key
-            )
+        client = OpenAI(api_key=open_ai_api_key)
+        print(client)
 
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-4o",
             messages=[
-        {
-        "role": "user",
-            "content": [
-            {"type": "text", "text": "What type of plant is this? What are some of it's characteristics? please output raw text instead of markdown."},
-            {
-            "type": "image_url",
-            "image_url": {
-            "url": "http://res.cloudinary.com/de24b2xsz/image/upload/v1729885095/rmqdrdldxa9cpmxfl3wx.jpg",
-            },
-            },
-        ],
-        } 
-    ],
-    temperature=0,
-    max_tokens=300,
-    )
+                        {
+                        "role": "user",
+                            "content": [
+                            {"type": "text", "text": "What type of plant is this? What are some of it's characteristics? please output raw text instead of markdown."},
+                            {
+                            "type": "image_url",
+                            "image_url": {
+                            "url": "http://res.cloudinary.com/de24b2xsz/image/upload/v1729885095/rmqdrdldxa9cpmxfl3wx.jpg",
+                            },
+                            },
+                        ],
+                        } 
+                    ],
+            temperature=0,
+            max_tokens=300,
+        )
 
-print(response.choices[0].message.content)
+        print(response.choices[0].message.content)
         # upload to cloudinary using self.api_keys['cloud_name'], self.api_keys['api_key'], self.api_keys['api_secret']
         # and get the image url
 
@@ -135,6 +141,9 @@ api_keys = {
     "api_secret": api_secret,
     "open_ai_api_key": open_ai_api_key
 }
+
+import os
+print(os.getcwd())
 
 app =   PlantIndicator(api_keys) # make sure to pass the API key
 app.mainloop()
