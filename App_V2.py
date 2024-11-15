@@ -107,7 +107,7 @@ class PlantIndicator(tk.Tk):
         print(client)
 
         response = client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-4o",
             messages=[
                         {
                         "role": "user",
@@ -142,8 +142,7 @@ api_keys = {
     "open_ai_api_key": open_ai_api_key
 }
 
-import openai
-print(os.getcwd())
+
 
 
 app =   PlantIndicator(api_keys) # make sure to pass the API key
