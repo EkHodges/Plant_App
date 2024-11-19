@@ -1,90 +1,92 @@
 import tkinter as tk
 from tkinter import ttk, filedialog
-from tkinter.scrolledtext import ScrolledText
 from PIL import Image, ImageTk
 import requests
-import json
 import openai
+from tkinter import messagebox
+from tkinter.scrolledtext import ScrolledText
+import cloudinary
+import cloudinary.uploader
 
-from keys import cloud_name, api_key, api_secret, open_ai_api_key
+from keys import open_ai_api_key, cloud_name, api_key, api_secret
 
-class PlantRecognitionApp(tk.Tk):
+class PlantIdentifierApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Plant Recognition App")
-        self.geometry("600x900")
+        self.title("Plant Identifier App")
 
-        # Main Frame
-        main_frame = ttk.Frame(self)
-        main_frame.pack(expand=1, fill="both", padx=10, pady=10)
+        # Create notebook for tabs
+        self.notebook = ttk.Notebook(self)
+        self.notebook.pack(expand=1, fill='both')
 
-        # Image Upload Section
-        photo_label = ttk.Label(main_frame, text="Upload a Plant Image:")
-        photo_label.grid(row=0, column=0, padx=10, pady=10, sticky="w", columnspan=2)
+        # Create frames for Photo Recognition and Plant Information
+        self.frame1 = ttk.Frame(self.notebook)
+        self.frame2 = ttk.Frame(self.notebook)
 
-        self.image_label = tk.Label(main_frame, bg="lightgray", width=60, height=20, relief="solid")
-        self.image_label.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+        # Add frames to notebook
+        self.notebook.add(self.frame1, text="Photo Recognition")
+        self.notebook.add(self.frame2, text="Plant Information")
 
-        # Buttons for upload
-        upload_button = ttk.Button(main_frame, text="Upload Image", command=self.upload_image)
-        upload_button.grid(row=2, column=0, padx=10, pady=5, sticky="e")
+        # Frame 1: Upload Image and Display
+        self.photo_label = ttk.Label(self.frame1, text="Upload a Plant Image:")
+        self.photo_label.grid(row=0, column=0, padx=10, pady=10)
 
-        # Plant Information Section
-        info_label = ttk.Label(main_frame, text="Plant Information:")
-        info_label.grid(row=3, column=0, padx=10, pady=5, sticky="w", columnspan=2)
+        self.image_label = tk.Label(self.frame1)
+        self.image_label.grid(row=1, column=0, padx=10, pady=10, columnspan=2)
 
-        self.plant_info_text = ScrolledText(main_frame, wrap="word", width=70, height=15)
-        self.plant_info_text.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
-        self.plant_info_text.insert("1.0", "Plant information will appear here after identification.")
-        self.plant_info_text.config(state="disabled")
+        self.upload_button = ttk.Button(self.frame1, text="Upload Image", command=self.open_image)
+        self.upload_button.grid(row=0, column=1, padx=10, pady=10)
 
-    def upload_image(self):
-        """Handles image upload from the user's device."""
-        file_path = filedialog.askopenfilename(
-            filetypes=[("Image Files", "*.png *.jpg *.jpeg *.bmp *.gif")]
-        )
+        # Frame 2: Display Plant Information
+        self.plant_info_text = ScrolledText(self.frame2, width=40, height=10, wrap='word')
+        self.plant_info_text.grid(row=0, column=0, padx=10, pady=10)
+
+    def open_image(self):
+        file_path = filedialog.askopenfilename()
         if file_path:
-            self.display_image(file_path)
-            plant_data = self.identify_plant(file_path)
-            self.display_plant_info(plant_data)
+            # Open the image and display it
+            img = Image.open(file_path)
+            img.thumbnail((300, 300))  # Resize the image for display
+            img_tk = ImageTk.PhotoImage(img)
+            self.image_label.config(image=img_tk)
+            self.image_label.image = img_tk
 
-    def display_image(self, image_source):
-        """Displays an uploaded image."""
+            # Upload the image to Cloudinary
+            self.upload_to_cloudinary(file_path)
+
+    def upload_to_cloudinary(self, image_path):
         try:
-            image = Image.open(image_source)
-            image = image.resize((300, 300))  # Resize for display
-            photo = ImageTk.PhotoImage(image)
-            self.image_label.config(image=photo)
-            self.image_label.image = photo
-        except Exception as e:
-            self.display_plant_info(f"Error displaying image: {e}")
+            # Upload the image to Cloudinary
+            response = cloudinary.uploader.upload(image_path)
+            image_url = response['url']  # Get the URL of the uploaded image
+            print(f"Image URL: {image_url}")
 
-    def get_plant_details_from_openai(self, common_name, scientific_name):
-        """Get detailed plant information using OpenAI."""
+            # Send the image URL to OpenAI for identification
+            self.identify_plant(image_url)
+        except Exception as e:
+            messagebox.showerror("Error", f"Error uploading image: {str(e)}")
+
+    def identify_plant(self, image_url):
         try:
-            prompt = (
-                f"Provide detailed information about the plant {common_name} ({scientific_name}). "
-                f"Include how it grows, care instructions, and any interesting facts."
+            # Send a request to OpenAI with the image URL
+            response = openai.Completion.create(
+                model="text-davinci-003",
+                prompt=f"Identify the plant from this image URL: {image_url}. Provide common name, scientific name, and care instructions.",
+                temperature=0.7,
+                max_tokens=150
             )
-            response = openai.ChatCompletion.create(
-                model="gpt-4o",
-                messages=[
-                    {"role": "system", "content": "You are a plant expert."},
-                    {"role": "user", "content": prompt},
-                ]
-            )
-            return response["choices"][0]["message"]["content"]
+            
+            # Extract and display plant details in the scrolled text area
+            plant_info = response.choices[0].text.strip()
+            self.display_plant_info(plant_info)
         except Exception as e:
-            return f"Error fetching details from OpenAI: {e}"
+            messagebox.showerror("Error", f"Error identifying plant: {str(e)}")
 
-    def display_plant_info(self, info):
-        """Displays the plant information in the scrollable text box."""
-        self.plant_info_text.config(state="normal")
-        self.plant_info_text.delete("1.0", "end")
-        self.plant_info_text.insert("1.0", info)
-        self.plant_info_text.config(state="disabled")
+    def display_plant_info(self, plant_info):
+        self.plant_info_text.delete(1.0, tk.END)  # Clear previous information
+        self.plant_info_text.insert(tk.END, plant_info)  # Insert new plant information
 
 
 if __name__ == "__main__":
-    app = PlantRecognitionApp()
+    app = PlantIdentifierApp()
     app.mainloop()
