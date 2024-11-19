@@ -1,21 +1,18 @@
 import tkinter as tk
 from tkinter import ttk, filedialog
 from PIL import Image, ImageTk
-#import cv2
 import requests
 from tkinter.scrolledtext import ScrolledText
-from tkinter import ttk  # This contains the self.notebook widget but is also has themed/styles widgets e.g. ttk.Button
+from tkinter import ttk 
 import platform
 import cloudinary
 import cloudinary.uploader
-
 import os
-from openai import OpenAI # pip install openai
-from keys import open_ai_api_key # you must enter your OpenAI API key in a file called keys.py
-
+from openai import OpenAI 
+from keys import open_ai_api_key 
 
 # API configuration 
-from keys import cloud_name, api_key, api_secret, open_ai_api_key   # make sure keys.py is you .gitignore!!!!
+from keys import cloud_name, api_key, api_secret, open_ai_api_key
 
 class PlantIndicator(tk.Tk):
     def __init__(self, api_keys):
@@ -54,7 +51,6 @@ class PlantIndicator(tk.Tk):
         self.notebook.add(self.frame1, text="Photo Recognition")
         self.notebook.add(self.frame2, text="Plant Information")
         self.notebook.pack(expand=1, fill="both")
-
 
         # self.Frame 1: Photo Recognition
         photo_label = ttk.Label(self.frame1, text="Upload a Plant Image:")
