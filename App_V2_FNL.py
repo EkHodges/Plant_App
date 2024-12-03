@@ -102,7 +102,7 @@ class PlantRecognitionApp(tk.Tk):
 
             # OpenAI API call
             response = client.ChatCompletion.create(
-                model="gpt-4o",
+                model="gpt-4",
                 messages=[
                     {"role": "system", "content": "You are a helpful plant expert."},
                     {"role": "user", "content": prompt},
