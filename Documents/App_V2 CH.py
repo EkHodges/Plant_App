@@ -1,17 +1,13 @@
 import tkinter as tk
 from tkinter import ttk, filedialog
 from PIL import Image, ImageTk
-#import cv2
 import requests
 from tkinter.scrolledtext import ScrolledText
-from tkinter import ttk  # This contains the self.notebook widget but is also has themed/styles widgets e.g. ttk.Button
+from tkinter import ttk
 import platform
-import cloudinary
-import cloudinary.uploader
-
 import os
-from openai import OpenAI # pip install openai
-from keys import open_ai_api_key # you must enter your OpenAI API key in a file called keys.py
+from openai import OpenAI
+from keys import open_ai_api_key
 
 
 # API configuration 

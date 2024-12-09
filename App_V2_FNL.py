@@ -100,6 +100,16 @@ class PlantRecognitionApp(tk.Tk):
                 "Identify its name, species, growth habits, and care instructions. "
             )
 
+            # Send a request to OpenAI with the image URL
+            response = openai.ChatCompletion.create(
+                model="gpt-4",
+                prompt=f"Identify the plant from this image URL: {image_url}. Provide common name, scientific name, and care instructions.",
+                temperature=0.7,
+                max_tokens=150
+            )
+            
+            print(response.choices[0])
+            
             # OpenAI API call
             response = client.ChatCompletion.create(
                 model="gpt-4",
