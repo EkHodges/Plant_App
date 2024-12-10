@@ -11,9 +11,12 @@ o	Make sure to install the most recent Open AI version to ensure the code runs p
 o	API keys should be saved in a keys.py file under .gitignore
 
 ## Usage
--	main.py: run in the project root folder
+-	run main.py in the project root folder
 -	keys.py should be used within .gitignore to run API keys securely
--	test images are stored in the Images folder and can be accessed when the code is ran
+   example:
+
+    	open_ai_api_key = "XXX" ; cloud_name ="XXXX" ; api_key = "XXXX" ; api_secret ="XXXX"
+  
 
 ## Code Examples
 This project is meant to be ran with Python code. Here are some examples of the app’s features:
