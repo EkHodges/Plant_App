@@ -63,6 +63,5 @@ Display plan information in a scroll text box:
 
 ## Known Issues
 -	Currently the app does not display correct plant information within on the GUI display. The code has worked to export the information into the VS Code terminal, but does not show up on the intended text box.
--	The information that does display on the output text box shows the error “An error occurred while identifying the plant: name 'client' is not defined” which appears for both Upload Image and Enter URL actions.
-o	However, the debugger tool within VS Code does not display where the error occurs within the code.
+-	The information that does display on the output text box shows the error “An error occurred while identifying the plant: name 'client' is not defined” which appears for both Upload Image and Enter URL actions. However, the debugger tool within VS Code does not display where the error occurs within the code.
 
